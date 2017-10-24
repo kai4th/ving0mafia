@@ -66,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.InfoWind
 
     private fun getIcon(title: String): BitmapDescriptor {
         return try {
-            BitmapDescriptorFactory.fromResource(IconMap.valueOf(title.replace(" ", "_")).res)
+            BitmapDescriptorFactory.fromResource(IconMap.valueOf(title.replace(" ", "_").toUpperCase()).res)
         } catch (e: Throwable) {
             BitmapDescriptorFactory.defaultMarker()
         }
@@ -90,14 +90,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.InfoWind
             }
         }
         return mapData
-    }
-
-    enum class IconMap(val res: Int) {
-        TLX(R.drawable.tlx), NAVER(R.drawable.naver_logo), HAVIT(R.drawable.havit),
-        삼분의일(R.drawable.sam1), VINGLE(R.drawable.vingle),
-        NHN_ENTER(R.drawable.nhn_enter), COUPANG(R.drawable.coupang), POOLUS(R.drawable.poolus),
-        LEZHIN(R.drawable.lezhin), RIOT(R.drawable.riot), DAILY_HOTEL(R.drawable.daily_hotel),
-        THIS_IS_GAME(R.drawable.this_is_game), EASTSOFT(R.drawable.eastsoft)
     }
 
     override fun getInfoContents(marker: Marker?): View {
