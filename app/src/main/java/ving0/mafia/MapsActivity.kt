@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.*
 import java.io.InputStreamReader
 import java.util.*
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.InfoWindowAdapter {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
 
@@ -24,44 +24,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.InfoWind
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
 
         map = googleMap
 
-        // Add a marker in Sydney and move the camera
-
-        data.forEachIndexed { index, spot ->
+        data.forEach { spot ->
             val position = LatLng(spot.position.first, spot.position.second)
             val title = spot.company.replace("_", " ")
             val names: Array<String> = spot.names.filter { !TextUtils.isEmpty(it) }.toTypedArray()
-
-            val marker = MarkerOptions().position(position).title(title).snippet(Arrays.toString(names)).icon(getIcon(title))
+            val nameArrayString = Arrays.toString(names)
+            val nameString = nameArrayString.substring(1, nameArrayString.length - 1)
+            val marker = MarkerOptions().position(position).title(title).snippet(nameString).icon(getIcon(title))
             map.addMarker(marker)
         }
 
-//        val naver = LatLng(37.359468, 127.105357)
-//        val naverMarker = MarkerOptions().position(naver).title("Naver GreenFactory")
-//        map.addMarker(naverMarker)
         val vingle = LatLng(37.505281, 127.048383)
-//        map.addMarker(MarkerOptions().position(vingle).title("Vingle"))
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(vingle, 12.0f))
         map.uiSettings.isZoomControlsEnabled = true
-//        map.setInfoWindowAdapter(this)
     }
 
     private fun getIcon(title: String): BitmapDescriptor {
@@ -90,18 +74,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.InfoWind
             }
         }
         return mapData
-    }
-
-    override fun getInfoContents(marker: Marker?): View {
-        val view = LayoutInflater.from(this).inflate(R.layout.infowindow, null)
-        view.findViewById<ImageView>(R.id.thumb).setImageResource(R.drawable.naver)
-        view.findViewById<TextView>(R.id.name).setText("wonsik\nyounghoon")
-        return view
-
-    }
-
-    override fun getInfoWindow(marker: Marker?): View? {
-        return null;
     }
 
     data class MapData(val company: String, val position: Pair<Double, Double>, val names: Array<String>)
