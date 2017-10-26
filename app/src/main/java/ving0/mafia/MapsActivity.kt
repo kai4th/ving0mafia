@@ -1,4 +1,4 @@
-package ving0.mafia.ving0mafia
+package ving0.mafia
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

@@ -8,19 +8,34 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "ving0.mafia.ving0mafia"
+        applicationId "ving0.mafia"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("ving0.keystore")
+            storePassword "ving9ving0"
+            keyAlias "ving0"
+            keyPassword "ving9ving0"
+        }
+    }
+
     buildTypes {
+        debug {
+//            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+
 }
 
 dependencies {
