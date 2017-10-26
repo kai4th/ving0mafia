@@ -23,5 +23,6 @@ enum class IconMap(val res: Int) {
     ST_UNITAS(R.drawable.st_unitas),
     FACEBOOK(R.drawable.facebook),
     SK_TECHX(R.drawable.sk_techx),
-    하이퍼커넥트(R.drawable.azar)
+    하이퍼커넥트(R.drawable.azar),
+    University_of_Wisconsin_Madison(R.drawable.wisconsin)
 }
